@@ -1,0 +1,9 @@
+{
+  "id": "notes-to-canvas-mapper",
+  "name": "Notes to Canvas Mapper",
+  "version": "1.0.0",
+  "minAppVersion": "1.5.0",
+  "description": "Convert structured notes into visual Obsidian Canvas maps.",
+  "author": "Dumkene",
+  "isDesktopOnly": false
+}
