@@ -1,212 +1,52 @@
 # Notes to Canvas Mapper
 
-Convert structured notes into visual Obsidian Canvas maps.
+Convert structured notes and simple flowchart syntax into visual Obsidian Canvas maps.
 
-Notes to Canvas Mapper helps turn long notes, AI-generated outputs, feature lists, plans, and grouped ideas into an editable visual layout inside **Obsidian Canvas**. Instead of scrolling through large blocks of text, you can generate a graph-like canvas with sections, child items, nested branches, and optional image nodes.
-
-This plugin is especially useful for:
-
-- project planning
-- game design
-- feature breakdowns
-- system mapping
-- AI output organization
-- idea clustering
-- visually grouping related content
+Notes to Canvas Mapper helps you turn long notes, AI-generated plans, feature lists, grouped ideas, and simple graph relationships into editable Obsidian Canvas layouts. The plugin is meant to create a useful starting Canvas quickly; you can then rearrange, resize, recolor, and refine the Canvas manually.
 
 ---
 
-## What the plugin does
+## Ways to use the plugin
 
-The plugin reads structured Markdown and generates a native `.canvas` file inside your Obsidian vault.
+### Option 1: Use the ribbon icon
 
-It can currently map:
+Click the **workflow icon** in Obsidian's left ribbon.
 
-- document titles
-- section headings
-- bullet lists
-- nested bullet lists
-- selected text
-- current note contents
-- image embeds in supported formats
-- section groups on the canvas
-- node and group colors
+The icon uses smart behavior:
 
-The generated canvas remains editable in Obsidian, so you can still move nodes around manually after generation.
-
----
-
-## Current features
-
-- Generate Canvas from **Current Note**
-- Generate Canvas from **Selected Text**
-- Smart ribbon icon behavior
-  - uses selected text if there is a selection
-  - otherwise uses the current note
-- Nested bullet support
-- Basic image embed support
-- Adjustable spacing and output settings
-- Native Obsidian Canvas output
-- Section grouping
-- Node colors and group colors
-
----
-
-## How to use the plugin
-
-After enabling the plugin in Obsidian, you can run it in two ways:
-
-### Option 1: Click the left sidebar ribbon icon
-
-The plugin adds an icon to the **left sidebar**.
-
-- If you click the icon while **text is selected** in the current note, the plugin generates a canvas from the **selected text only**.
-- If you click the icon with **no text selected**, the plugin generates a canvas from the **entire current note**.
-
-This is the fastest way to use the plugin.
+- If text is selected in the current note, the plugin generates a Canvas from the selected text.
+- If no text is selected, the plugin generates a Canvas from the whole current note.
+- If the selected text or note contains supported flowchart syntax, the plugin uses Flowchart Syntax Mode.
+- Otherwise, it uses the normal structured note outline mode.
 
 ### Option 2: Use the Command Palette
 
-Open the Obsidian **Command Palette** and run one of these commands:
+Open the Command Palette:
+
+- Windows/Linux: `Ctrl + P`
+- macOS: `Cmd + P`
+
+Then search for one of the plugin commands, such as:
 
 - **Generate Canvas from Current Note**
 - **Generate Canvas from Selected Text**
 
-On many systems, the Command Palette can be opened with:
+---
 
-- **Ctrl + P** on Windows/Linux
-- **Cmd + P** on macOS
+## Two supported input modes
 
-If you do not know the shortcut, you can also open the Command Palette from Obsidian’s interface.
+Notes to Canvas Mapper currently supports two practical input styles:
 
-### What happens after generation
-
-When the plugin runs, it creates a new `.canvas` file in your vault and opens it in Obsidian. The generated canvas can then be adjusted manually if you want to improve spacing, move nodes, or rearrange groups.
+1. **Outline Mode** — best for structured notes, plans, and AI-generated outlines.
+2. **Flowchart Syntax Mode** — best for more complex node networks and cross-links.
 
 ---
 
-## Screenshots
+# 1. Outline Mode
 
-**Markdown note sample**
+Outline Mode works best with a simple Markdown structure.
 
-![markdown_notes.png](markdown_notes.png)
-
-
-
-
-
-**Command Palette**
-
-![command_palette.png](command_palette.png)
-
-
-
-
-
-**Graph generated on the canvas from notes**
-
-![generated_canvas_nodes.png](generated_canvas_nodes.png)
-
-## 
-
-
-
-**Plugin icon shown in the red box**
-
-![current_icon.png](current_icon.png)
-
-## 
-
-## Best use cases
-
-Notes to Canvas Mapper works best when the input note is already somewhat structured.
-
-Examples:
-
-- feature lists grouped by system
-- game characters and their abilities
-- UI breakdowns
-- quest flow ideas
-- plugin/module architecture
-- project roadmaps
-- AI-generated planning notes
-- grouped design concepts
-
-It is most effective when the note is written as a hierarchy rather than a loose stream of paragraphs.
-
----
-
-# Supported Markdown structure
-
-The plugin currently works best with the following structure.
-
-## Title
-
-Use a level-1 heading for the main root of the map:
-
-```md
-# My Project
-```
-
-This becomes the root node of the generated canvas.
-
-## Sections
-
-Use level-2 headings for major groups:
-
-```md
-## Core Features
-## UI
-## Future Ideas
-```
-
-These become section/group nodes under the root.
-
-## Items
-
-Use bullet lists under sections:
-
-```md
-## Core Features
-- Character movement
-- Combat system
-- Inventory
-```
-
-These become child nodes under the section.
-
-## Nested items
-
-Use indented bullet lists for hierarchy:
-
-```md
-## Characters
-- Hero
-  - Movement
-  - Combat
-- Enemy
-  - Melee
-  - Ranged
-```
-
-These become deeper branches in the canvas.
-
-## Images
-
-Supported embed patterns include:
-
-```md
-![Hero](hero.png)
-![[hero.png]]
-```
-
-If the referenced file exists in the vault and resolves correctly, the plugin can create an image/file node for it.
-
----
-
-# Recommended note format
-
-This is the safest format to use for consistent results:
+## Recommended format
 
 ```md
 # My Game Project
@@ -231,113 +71,69 @@ This is the safest format to use for consistent results:
 - Quest Log
 ```
 
-This style gives the plugin a clean structure to map.
+## Supported outline structure
 
----
+Use:
 
-# Recommended AI output format
+- one `# Title` for the map title
+- `## Section` headings for major groups
+- `-` dash bullets for items
+- indented `-` bullets for child items
+- optional image embeds such as `![[image.png]]` or `![Alt](image.png)`
 
-When using AI-generated notes, ask for output in structured Markdown.
+## Best practices for outline mode
 
-Use a prompt like this:
+Do:
 
-```txt
-Generate the response in clean Markdown for Obsidian using:
-- one # title
-- ## section headings for major groups
-- bullet lists for items
-- nested bullets for sub-items
-- keep it structured and compact
-- avoid large paragraphs unless necessary
-- use standard markdown bullets (-) for best compatibility
-- if images are needed, use vault-style references such as ![[image.png]]
-```
+- keep each bullet to one clear idea
+- group related ideas under `##` headings
+- use consistent indentation for child items
+- use dash bullets for the most reliable results
 
-That will dramatically improve the quality of generated canvases.
+Avoid:
 
----
-
-# Human writing guidelines
-
-To make notes map well:
-
-## Do this
-
-- use one clear `# Title`
-- use `##` headings for major groups
-- use `-` bullet points for items
-- use consistent indentation for children
-- keep each bullet as one idea
-- group related items under one heading
-- use image embeds only when needed
-
-## Avoid this
-
-- giant unstructured paragraphs
+- long unstructured paragraphs
 - random heading jumps
-- mixing too many heading levels without purpose
+- mixed outline styles
 - inconsistent indentation
-- dumping disconnected thoughts without grouping
-- using the note like a stream-of-consciousness scratchpad when you expect a clean canvas
+- numbered, alphabetic, or Roman numeral lists when you expect predictable Canvas output 
 
-The plugin can only map structure that is actually present.
+## What happens after generation
 
----
+When the plugin runs, it creates a new `.canvas` file in your vault and opens it in Obsidian. The generated canvas can then be adjusted manually if you want to improve spacing, move nodes, or rearrange groups.
 
-# What happens when note formats differ?
+## Screenshots
 
-This is important.
+**Markdown note sample**
 
-## If the note stays structurally similar
+![markdown_notes.png](markdown_notes.png)
 
-The plugin will usually still work fine.
+**Command Palette**
 
-For example, these often still work:
+![command_palette.png](command_palette.png)
 
-- different section names
-- different item wording
-- different project domains
-- longer or shorter bullet contents
+**Graph generated on the canvas from notes**
 
-## If the note becomes less structured
+![generated_canvas_nodes.png](generated_canvas_nodes.png)
 
-The plugin may still generate a canvas, but the result may be weaker.
+**Plugin icon shown in the red box**
 
-Example of weak input:
+![current_icon.png](current_icon.png)
+
+## Images
+
+Supported embed patterns include:
 
 ```md
-# Project
-
-This is a long paragraph with many ideas mixed together.
-There are features, systems, characters, and future plans here,
-but they are not broken into sections or bullets.
+![Hero](hero.png)
+![[hero.png]]
 ```
 
-That may not map well because the parser does not deeply understand freeform prose.
+If the referenced file exists in the vault and resolves correctly, the plugin can create an image/file node for it.
 
 ---
 
-# Supported list styles
-
-For the cleanest and most reliable results, use this syntax:
-
-## Officially recommended
-
-- `#` for the document title
-- `##` for major sections
-- `- item` for list items
-- indented `- item` for nested items
-
-## Also commonly handled
-
-The plugin may also handle:
-
-- `* item`
-- `+ item`
-
-But for public-facing documentation and consistency, **dash bullets (`-`) should be treated as the preferred style**.
-
-## Not officially supported yet
+## Not supported yet
 
 These are not guaranteed to produce reliable hierarchy:
 
@@ -348,95 +144,203 @@ These are not guaranteed to produce reliable hierarchy:
 
 So yes, for consistency, users should follow a recommended structure. The plugin needs a predictable input grammar to give predictable output.
 
----
+--- 
 
-# Official recommended syntax contract
+# 2. Flowchart Syntax Mode
 
-For the best results, notes should follow this pattern:
+Flowchart Syntax Mode supports a small Mermaid-compatible flowchart subset that maps cleanly to Obsidian Canvas nodes, edges, groups, and basic colors.
 
-- one main `#` title
-- `##` section headings for groups
-- `-` dash bullets for nodes
-- consistent indentation for nested nodes
-- optional image embeds when needed
+This is useful when your notes are no longer a simple tree and you need graph-like relationships.
 
-If users or AI follow that contract, the plugin will work much more smoothly.
+## Supported flowchart headers
 
----
-
-# Example inputs
-
-## Example 1 — Feature planning
-
-```md
-# Route Planner App
-
-## Core Systems
-- Route creation
-- Task grouping
-- Map markers
-
-## UI
-- Dashboard
-- Calendar panel
-- Task editor
-
-## Future Ideas
-- Team collaboration
-- AI suggestions
-- Mobile sync
+```mermaid
+flowchart TD
+flowchart TB
+flowchart BT
+flowchart LR
+flowchart RL
+graph TD
+graph TB
+graph BT
+graph LR
+graph RL
 ```
 
-## Example 2 — Game design
+Direction is used as a layout hint:
 
-```md
-# Action RPG
+- `TD` / `TB` = top-down
+- `BT` = bottom-top
+- `LR` = left-right
+- `RL` = right-left
 
-## Characters
-- Hero
-  - Movement
-  - Combat
-  - Skills
-- Enemy
-  - Melee
-  - Ranged
-  - Boss
+The plugin generates a clean starting layout. Complex graphs may still need manual adjustment in Canvas.
 
-## Systems
-- Inventory
-- Quest Log
-- Crafting
+## Basic node and edge syntax
 
-## UI
-- HUD
-- Pause Menu
-- Inventory Screen
+```mermaid
+flowchart TD
+    A[Hero] --> B[Combat]
+    B[Combat] --> C[Damage System]
 ```
 
-## Example 3 — Plugin planning
+This becomes editable Canvas nodes and edges.
 
-```md
-# Notes to Canvas Mapper
+## One source to many targets
 
-## Core Features
-- Generate from current note
-- Generate from selected text
-- Nested bullet support
-
-## Layout
-- Smart spacing
-- Compact mode
-- Hierarchy mode
-
-## Future Features
-- Note link nodes
-- Better image resolution
-- Update existing canvas
+```mermaid
+flowchart LR
+    A[Hero] --> B[Movement] & C[Combat] & D[Inventory]
 ```
+
+This expands to:
+
+- Hero → Movement
+- Hero → Combat
+- Hero → Inventory
+
+## Many sources to one target
+
+```mermaid
+flowchart LR
+    A[Hero] & B[Enemy] --> C[Combat System]
+```
+
+This expands to:
+
+- Hero → Combat System
+- Enemy → Combat System
+
+## Many sources to many targets
+
+```mermaid
+flowchart LR
+    A[Hero] & B[Enemy] --> C[Combat] & D[Damage System]
+```
+
+This expands to:
+
+- Hero → Combat
+- Hero → Damage System
+- Enemy → Combat
+- Enemy → Damage System
+
+## Subgraphs
+
+Subgraphs become Canvas groups.
+
+```mermaid
+flowchart LR
+    subgraph Characters
+        direction TD
+        Hero[Hero] --> Combat[Combat]
+        Enemy[Enemy] --> AI[Enemy AI]
+    end
+
+    subgraph UI
+        direction TD
+        Combat --> HealthBar[Health Bar]
+    end
+```
+
+Subgraph directions are treated as layout hints. Cross-subgraph links may still require manual cleanup in Canvas.
+
+## Basic class color styling
+
+The plugin supports simple `classDef` usage for node colors.
+
+```mermaid
+flowchart LR
+    A:::hero & B:::enemy --> C:::system
+
+    classDef hero fill:blue
+    classDef enemy fill:orange,stroke:green
+    classDef system stroke:purple
+```
+
+Current color behavior:
+
+- `fill` is preferred for node color.
+- `stroke` is used as a fallback if no fill exists.
+- Styling is approximate because Obsidian Canvas does not behave like a full CSS renderer.
+
+## Flowchart syntax intentionally not supported yet
+
+This plugin does **not** try to support all Mermaid features.
+
+Not officially supported in Flowchart Syntax Mode:
+
+- sequence diagrams
+- class diagrams
+- state diagrams
+- ER diagrams
+- Gantt charts
+- timelines
+- pie charts
+- complex Mermaid themes
+- complex node shapes
+- advanced link styling
+- click callbacks
+- full Mermaid rendering behavior
+
+The goal is not to replace Mermaid. The goal is to generate editable Canvas nodes and edges from a simple flowchart-like syntax.
 
 ---
+
+# Recommended AI prompt
+
+Use this when asking an AI to generate notes for the plugin:
+
+```txt
+Format this for Notes to Canvas Mapper:
+- Use one # Title
+- Use ## section headings for major groups
+- Use - dash bullets for items
+- Use indented - bullets for child items
+- Keep each bullet to one clear idea
+- Avoid tables, numbered lists, and long paragraphs
+- Output only the structured outline
+```
+
+For complex graph networks, use this:
+
+```txt
+Format this as simple flowchart syntax for Notes to Canvas Mapper:
+- Use flowchart TD, TB, BT, LR, or RL
+- Use node labels like A[Readable Label]
+- Use arrows like A --> B
+- Use & when one node connects to many nodes or many nodes connect to one node
+- Use subgraph blocks only for major groups
+- Use simple classDef fill or stroke colors if needed
+- Avoid advanced Mermaid syntax
+- Output only the flowchart block
+```
 
 # Troubleshooting
+
+## Canvas is generated but spacing is imperfect
+
+The plugin creates a starting layout. For complex graphs, use Obsidian Canvas to manually adjust placement.
+
+## Image block says file could not be found
+
+Make sure the image exists in the vault at the referenced path. You can also drag and drop the image into Canvas manually.
+
+## Output looks too flat
+
+Use nested bullets in Outline Mode, or use Flowchart Syntax Mode if the content is really a graph network.
+
+## Flowchart syntax does not parse correctly
+
+Keep the syntax simple:
+
+```mermaid
+flowchart LR
+    A[Label A] --> B[Label B]
+    A --> C & D
+```
+
+Avoid advanced Mermaid syntax.
 
 ## Plugin loads but nothing appears
 
@@ -445,18 +349,6 @@ Use the ribbon icon in the left sidebar or the Command Palette.
 - Clicking the ribbon icon uses the current note.
 - If text is selected, the ribbon icon uses the selected text instead.
 - The plugin does not open a separate panel. It generates a canvas file when you run it.
-
-## Canvas is generated but spacing is imperfect
-
-This can happen with uneven content sizes. The plugin does the bulk layout, but Canvas remains editable for final adjustment.
-
-## Image block says file could not be found
-
-Usually this means the image path or vault resolution did not match what Canvas expected. If the image exists in the vault and is placed correctly, drag-and-drop remains a valid fallback.
-
-## Output looks too flat
-
-Use nested bullet lists instead of a single flat list.
 
 ## Output is messy
 
@@ -467,4 +359,33 @@ The note is probably too unstructured. Break it into:
 - bullet groups
 - nested bullets where needed
 
----
+# Summary
+
+Notes to Canvas Mapper is designed to create useful editable Canvas starter maps from:
+
+- structured Markdown notes
+- selected text
+- simple flowchart syntax
+
+It is not meant to replace full diagramming tools. It is meant to save time by creating the first visual structure quickly, so you can finish arranging and refining directly inside Obsidian Canvas.
+
+## Updates in v2.0.0
+
+### Added
+
+- Simple Flowchart Mode for Mermaid-style flowchart syntax
+- Support for `flowchart` and `graph` directions: TD, TB, BT, LR, RL
+- Support for node labels such as `A[Hero]`
+- Support for shorthand edge expansion using `&`
+- Support for subgraphs as Canvas groups
+- Basic `classDef` color support
+
+### Improved
+
+- Better Canvas grouping for complex visual maps
+- Better parsing of compact flowchart syntax, such as `A[Here] -->B[There]`
+- Better label handling when a node appears first as an ID/class reference and later with a readable label
+
+## Note
+
+This is not full Mermaid support. Flowchart Mode supports a focused Mermaid-compatible subset that maps cleanly to Obsidian Canvas.
